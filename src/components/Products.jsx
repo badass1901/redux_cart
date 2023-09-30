@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loader from "./Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {add} from '../features/cartSlice'
+import { fetchProducts } from "../features/productSlice";
+import { STATUSES } from "../features/productSlice";
 
 const Products = () => {
   const dispatch = useDispatch()
-  const [products, setProducts] = useState([]);
-  
+
+  const {data:products,status} = useSelector(state=> state.product)
   useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch("https://fakestoreapi.com/products");
-      const data = await res.json();
-      setProducts(data);
-      
-    };
-    fetchProducts();
+    dispatch(fetchProducts());
   }, []);
 
   const handleAdd = (product) => {
@@ -22,8 +18,15 @@ const Products = () => {
 
 };
 
+if(status === STATUSES.LOADING){
+  return <Loader />
+}
+if(status === STATUSES.ERROR){
+  return <h2>Something went wrong!</h2>
+}
 
-  return (products.length> 0) ? (
+
+  return  (
     <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 w-full">
       {products.map((product) => (
         <div
@@ -42,7 +45,7 @@ const Products = () => {
         </div>
       ))}
     </div>
-  ) : (<Loader />)
+  ) 
 };
 
 export default Products;
