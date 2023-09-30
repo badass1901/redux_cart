@@ -11,14 +11,15 @@ const Products = () => {
     const fetchProducts = async () => {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      console.log(data)
       setProducts(data);
+      
     };
     fetchProducts();
   }, []);
 
   const handleAdd = (product) => {
     dispatch(add(product));
+
 };
 
 
@@ -37,7 +38,7 @@ const Products = () => {
             {product.title.slice(0, 54)}
           </p>
           <p className="font-bold">${product.price}</p>
-          <button onClick={() => handleAdd(product.title)} className="w-1/2 my-4 border-none py-2 font-semibold bg-yellow-500 dark:bg-black hover:scale-105 transition ease-in-out rounded-full">Add to cart</button>
+          <button onClick={() => handleAdd(product)} className="w-1/2 my-4 border-none py-2 font-semibold bg-yellow-500 dark:bg-black hover:scale-105 transition ease-in-out rounded-full">Add to cart</button>
         </div>
       ))}
     </div>

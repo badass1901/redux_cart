@@ -1,8 +1,11 @@
-import React from 'react'
+
+import {BiLoaderAlt} from 'react-icons/bi'
 
 const Loader = () => {
   return (
-    <div>Loader</div>
+   <div className='flex items-center justify-center'>
+     <BiLoaderAlt size='5em' className='text-yellow-400 loader' />
+   </div>
   )
 }
 
