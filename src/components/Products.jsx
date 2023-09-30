@@ -14,9 +14,12 @@ const Products = () => {
   }, []);
 
   const handleAdd = (product) => {
+
     dispatch(add(product));
+    
 
 };
+
 
 if(status === STATUSES.LOADING){
   return <Loader />
@@ -31,7 +34,7 @@ if(status === STATUSES.ERROR){
       {products.map((product) => (
         <div
           key={product.id}
-          className="w-full h-[400px] flex flex-col items-center justify-evenly border  py-4 px-2 overflow-hidden rounded-lg shadow-md bg-white shadow-gray-300 dark:shadow-gray-100"
+          className="w-full h-[400px] flex flex-col items-center justify-evenly border text-black py-4 px-2 overflow-hidden rounded-lg shadow-md bg-white shadow-gray-300 dark:shadow-gray-100"
         >
           <img
             src={product.image}
@@ -41,7 +44,7 @@ if(status === STATUSES.ERROR){
             {product.title.slice(0, 54)}
           </p>
           <p className="font-bold">${product.price}</p>
-          <button onClick={() => handleAdd(product)} className="w-1/2 my-4 border-none py-2 font-semibold bg-yellow-500 dark:bg-black hover:scale-105 transition ease-in-out rounded-full">Add to cart</button>
+          <button onClick={() => handleAdd(product)} className="w-1/2 my-4 border-none py-2 font-semibold bg-yellow-500 dark:bg-black hover:scale-105 dark:text-white transition ease-in-out rounded-full">Add to cart</button>
         </div>
       ))}
     </div>

@@ -1,17 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
 import { remove } from "../features/cartSlice";
+import { useEffect } from 'react';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart);
+  const items =useSelector((state) => state.cart);
+  useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(items));
+  },[items])
   const handleRemove = (id) => {
     dispatch(remove(id));
   };
 
+  // if((localStorage.getItem('cart')) == 0){
+  //   items = useSelector((state) => state.cart);
+  // } else{
+  //   items = (localStorage.getItem('cart'))
+  // }
+
   return (
     <div className="flex flex-col items-center text-center mx-10 my-auto">
       <h3 className="text-3xl my-6 font-semibold">Your Cart</h3>
-      <div className="bg-gray-100 w-full px-2">
+      <div className="text-black w-full px-2">
         {items == 0 ? (
           <h1 className="text-4xl text-center">Your Cart is Empty</h1>
         ) : (
@@ -30,7 +40,7 @@ const Cart = () => {
               </p>
               <button
                 onClick={() => handleRemove(product.id)}
-                className="border-none bg-red-500 font-semibold text-white px-2 py-1 rounded-md"
+                className="border-none bg-red-500 dark:bg-red-700 font-semibold text-white px-2 py-1 rounded-md"
               >
                 Remove
               </button>
